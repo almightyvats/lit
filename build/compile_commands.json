@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/Users/anuragvats/Dev/lit/build",
+  "command": "/usr/local/bin/g++-10  -I/Users/anuragvats/Dev/lit/lit-status -O3 -DNDEBUG -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=c++17 -o CMakeFiles/status.dir/lit-status/status.cpp.o -c /Users/anuragvats/Dev/lit/lit-status/status.cpp",
+  "file": "/Users/anuragvats/Dev/lit/lit-status/status.cpp"
+},
+{
+  "directory": "/Users/anuragvats/Dev/lit/build",
+  "command": "/usr/local/bin/g++-10  -I/Users/anuragvats/Dev/lit/lit-utils -I/Users/anuragvats/Dev/lit/lit-init -I/Users/anuragvats/Dev/lit/lit-log -I/Users/anuragvats/Dev/lit/lit-status -I/Users/anuragvats/Dev/lit/lit-help -O3 -DNDEBUG -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=c++17 -o CMakeFiles/lit.dir/main.cpp.o -c /Users/anuragvats/Dev/lit/main.cpp",
+  "file": "/Users/anuragvats/Dev/lit/main.cpp"
+},
+{
+  "directory": "/Users/anuragvats/Dev/lit/build",
+  "command": "/usr/local/bin/g++-10  -I/Users/anuragvats/Dev/lit/lit-utils -O3 -DNDEBUG -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=c++17 -o CMakeFiles/utils.dir/lit-utils/utils.cpp.o -c /Users/anuragvats/Dev/lit/lit-utils/utils.cpp",
+  "file": "/Users/anuragvats/Dev/lit/lit-utils/utils.cpp"
+},
+{
+  "directory": "/Users/anuragvats/Dev/lit/build",
+  "command": "/usr/local/bin/g++-10  -I/Users/anuragvats/Dev/lit/lit-utils -O3 -DNDEBUG -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=c++17 -o CMakeFiles/utils.dir/lit-utils/utils2.cpp.o -c /Users/anuragvats/Dev/lit/lit-utils/utils2.cpp",
+  "file": "/Users/anuragvats/Dev/lit/lit-utils/utils2.cpp"
+},
+{
+  "directory": "/Users/anuragvats/Dev/lit/build",
+  "command": "/usr/local/bin/g++-10  -I/Users/anuragvats/Dev/lit/lit-help -O3 -DNDEBUG -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=c++17 -o CMakeFiles/ihelp.dir/lit-help/help.cpp.o -c /Users/anuragvats/Dev/lit/lit-help/help.cpp",
+  "file": "/Users/anuragvats/Dev/lit/lit-help/help.cpp"
+},
+{
+  "directory": "/Users/anuragvats/Dev/lit/build",
+  "command": "/usr/local/bin/g++-10  -I/Users/anuragvats/Dev/lit/lit-log -O3 -DNDEBUG -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=c++17 -o CMakeFiles/log.dir/lit-log/log.cpp.o -c /Users/anuragvats/Dev/lit/lit-log/log.cpp",
+  "file": "/Users/anuragvats/Dev/lit/lit-log/log.cpp"
+},
+{
+  "directory": "/Users/anuragvats/Dev/lit/build",
+  "command": "/usr/local/bin/g++-10  -I/Users/anuragvats/Dev/lit/lit-init -O3 -DNDEBUG -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -std=c++17 -o CMakeFiles/init.dir/lit-init/init.cpp.o -c /Users/anuragvats/Dev/lit/lit-init/init.cpp",
+  "file": "/Users/anuragvats/Dev/lit/lit-init/init.cpp"
+}
+]

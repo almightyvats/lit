@@ -1,0 +1,2 @@
+/usr/bin/ar qc libstatus.a CMakeFiles/status.dir/lit-status/status.cpp.o
+/usr/bin/ranlib libstatus.a

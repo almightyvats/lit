@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/anuragvats/Dev/lit/lit-status/status.cpp
+status.hpp
+/Users/anuragvats/Dev/lit/lit-status/status.hpp
+algorithm
+-
+filesystem
+-
+fstream
+-
+iostream
+-
+
+/Users/anuragvats/Dev/lit/lit-status/status.hpp
+string
+-
+vector
+-
+map
+-
+filesystem
+-
+

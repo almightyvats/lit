@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/anuragvats/Dev/lit/lit-init/init.cpp
+init.hpp
+/Users/anuragvats/Dev/lit/lit-init/init.hpp
+../lit-utils/utils.hpp
+/Users/anuragvats/Dev/lit/lit-utils/utils.hpp
+iostream
+-
+string
+-
+
+/Users/anuragvats/Dev/lit/lit-init/init.hpp
+filesystem
+-
+
+/Users/anuragvats/Dev/lit/lit-status/status.hpp
+string
+-
+vector
+-
+map
+-
+filesystem
+-
+
+/Users/anuragvats/Dev/lit/lit-utils/utils.hpp
+../lit-status/status.hpp
+/Users/anuragvats/Dev/lit/lit-status/status.hpp
+filesystem
+-
+set
+-
+string
+-
+vector
+-
+

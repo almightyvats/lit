@@ -1,0 +1,2 @@
+/usr/bin/ar qc libihelp.a CMakeFiles/ihelp.dir/lit-help/help.cpp.o
+/usr/bin/ranlib libihelp.a
