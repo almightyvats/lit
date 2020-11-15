@@ -143,7 +143,6 @@ void LitUtils::sync_backup_folder()
 
 void LitUtils::sync_backup_in_merge(std::string last_checkout, std::vector<std::string> conflicted_files)
 {
-	getchar();
 	string path;
 	std::ifstream f_v_f1;
 	f_v_f1.open(m_commit_dir + "/r" + last_checkout + "/files");

@@ -111,15 +111,10 @@ bool LitUtils::checkout(std::string commit_no, bool for_merge /* = false*/)
 	if (!fs::exists(fs::path(desired_commit_dir)))
 		return false;
 
-	// bool checkout_merged = fs::exists(fs::path(desired_commit_dir + "/mrgd"));
-
 	bool checkout_branch = fs::exists(fs::path(desired_commit_dir + "/brch"));
 
 	bool is_empty_files_present = fs::exists(fs::path(desired_commit_dir + "/empfiles"));
 
-	// if (checkout_merged) {
-	// 	patch_root(commit_no);
-	// } else
 	if (checkout_branch) {
 		int final_parent;
 		std::set<int> branch_parents;
@@ -168,10 +163,6 @@ bool LitUtils::patch_root_recursive(const int upto_commit_no)
 		if (is_brch_present) {
 			continue;
 		}
-
-		// if (fs::exists(fs::path(commit_dir + "/mrgd"))) {
-		// 	clear_root();
-		// }
 
 		patch_root(std::to_string(i));
 	}
