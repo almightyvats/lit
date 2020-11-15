@@ -6,8 +6,7 @@
 
 void print_err_invalid_option(std::string option)
 {
-	if (option == "commit")
-	{
+	if (option == "commit") {
 		std::cout << "usage: lit commit <message>" << std::endl;
 		return;
 	}
@@ -34,27 +33,26 @@ void print_help_commands()
 {
 	std::string helpCommands[7] = {"init", "status", "commit", "show", "checkout", "merge", "log"};
 	std::string helpCommanddescription[7] = {
-		"To initialise an empty lit respository and making the current directoty the master branch",
-		"Lists of all files that have been added, removed, or modified, with respect to the currently checked out"
-		"commit",
-		"Creates a new commit containing all changes",
-		"This sub-command is used to inspect the given commit",
-		"This resets the state of all files to the given commit's state",
-		"This command initiates a merge with the currently checked out commit and the specified commit",
-		"Displays a graph of all commits and their relationship"};
+	    "To initialise an empty lit respository and making the current directoty the master branch",
+	    "Lists of all files that have been added, removed, or modified, with respect to the currently checked out"
+	    "commit",
+	    "Creates a new commit containing all changes",
+	    "This sub-command is used to inspect the given commit",
+	    "This resets the state of all files to the given commit's state",
+	    "This command initiates a merge with the currently checked out commit and the specified commit",
+	    "Displays a graph of all commits and their relationship"};
 
 	std::cout << "Commands"
-			  << "\t"
-			  << "\t"
-			  << "\t"
-			  << "\t"
-			  << "Decription" << std::endl
-			  << std::endl;
+	          << "\t"
+	          << "\t"
+	          << "\t"
+	          << "\t"
+	          << "Decription" << std::endl
+	          << std::endl;
 
-	for (int i = 0; i < 7; i++)
-	{
+	for (int i = 0; i < 7; i++) {
 		std::cout << helpCommands[i] << "\t"
-				  << "\t";
+		          << "\t";
 		if (i != 4)
 			std::cout << "\t";
 		std::cout << "\t" << helpCommanddescription[i] << std::endl;

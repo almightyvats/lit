@@ -7,9 +7,8 @@
 #include <string>
 #include <vector>
 
-class LitUtils
-{
-private:
+class LitUtils {
+  private:
 	std::filesystem::path m_current_working_dir;
 	std::vector<std::string> m_vec_listoffiles;
 	std::string m_commit_dir;
@@ -20,7 +19,7 @@ private:
 	std::string m_lit_folder;
 	LitStatus *m_litStatus;
 
-public:
+  public:
 	LitUtils(std::filesystem::path current_working_dir);
 	~LitUtils();
 
@@ -31,7 +30,9 @@ public:
 	bool log();
 	bool status();
 
-	void create_new_commit_dir(std::string commit_target_dest, std::string new_commit_folder_name, int temp_commit_no, int temp_lastcommit_no, std::string last_checkout_number, std::string commit_msg, bool for_merge);
+	void create_new_commit_dir(std::string commit_target_dest, std::string new_commit_folder_name, int temp_commit_no,
+	                           int temp_lastcommit_no, std::string last_checkout_number, std::string commit_msg,
+	                           bool for_merge);
 	bool patch_root(const std::string commit_no);
 	bool patch_root_recursive(const int upto_commit_no);
 	std::string get_deleted_file_name();
@@ -56,10 +57,13 @@ public:
 	void polish_file_name(const std::string &file_path, const std::string &to_find);
 	int read_file_for_int(const std::string &file_path);
 	void check_for_parent(const std::string &file_path, const int curr_branch, std::set<int> &branches,
-						  int &final_parent);
+	                      int &final_parent);
 	void clear_root();
 	bool validate_commit_no(const std::string commit_no, int last_commit_no);
-	// bool validate_root();
+	std::vector<std::string> get_branch_files(std::string commit_no);
+	std::string check_for_adding_conflict(std::vector<std::string> new_files, std::vector<std::string> branch_files);
+	std::string get_added_file_conflict_string(std::string commit_no);
+	bool is_anything_modified();
 };
 
 #endif
