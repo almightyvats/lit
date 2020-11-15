@@ -66,6 +66,7 @@ class LitUtils {
 	std::vector<std::string> get_added_file_conflict_string(std::string commit_no);
 	bool is_anything_modified();
 	void create_empty_files(std::string commit_dir);
+	void sync_backup_in_merge(std::string last_checkout, std::vector<std::string> conflicted_files);
 };
 
 #endif

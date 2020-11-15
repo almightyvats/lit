@@ -141,6 +141,32 @@ void LitUtils::sync_backup_folder()
 	}
 }
 
+void LitUtils::sync_backup_in_merge(std::string last_checkout, std::vector<std::string> conflicted_files)
+{
+	getchar();
+	string path;
+	std::ifstream f_v_f1;
+	f_v_f1.open(m_commit_dir + "/r" + last_checkout + "/files");
+	while (getline(f_v_f1, path)) {
+		string localpath = path;
+		string polished_file_name = localpath.erase(0, m_current_working_dir.string().length());
+		string backup_file_path = m_backup_dir + polished_file_name;
+
+		if (fs::is_directory(backup_file_path))
+			continue;
+
+		string copythis = path;
+		bool is_conflicted = false;
+		if (std::find(conflicted_files.begin(), conflicted_files.end(), path) != conflicted_files.end()) {
+			is_conflicted = true;
+			copythis = path + ".r" + last_checkout;
+		}
+		if (fs::exists(fs::path(copythis))) {
+			fs::copy(copythis, backup_file_path, fs::copy_options::recursive | fs::copy_options::update_existing);
+		}
+	}
+}
+
 void LitUtils::sync_info()
 {
 	fs::path current_working_dir = get_current_working_dir();

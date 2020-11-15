@@ -111,15 +111,16 @@ bool LitUtils::checkout(std::string commit_no, bool for_merge /* = false*/)
 	if (!fs::exists(fs::path(desired_commit_dir)))
 		return false;
 
-	bool checkout_merged = fs::exists(fs::path(desired_commit_dir + "/mrgd"));
+	// bool checkout_merged = fs::exists(fs::path(desired_commit_dir + "/mrgd"));
 
 	bool checkout_branch = fs::exists(fs::path(desired_commit_dir + "/brch"));
 
 	bool is_empty_files_present = fs::exists(fs::path(desired_commit_dir + "/empfiles"));
 
-	if (checkout_merged) {
-		patch_root(commit_no);
-	} else if (checkout_branch) {
+	// if (checkout_merged) {
+	// 	patch_root(commit_no);
+	// } else
+	if (checkout_branch) {
 		int final_parent;
 		std::set<int> branch_parents;
 		check_for_parent(desired_commit_dir + "/brch", r, branch_parents, final_parent);
@@ -168,9 +169,9 @@ bool LitUtils::patch_root_recursive(const int upto_commit_no)
 			continue;
 		}
 
-		if (fs::exists(fs::path(commit_dir + "/mrgd"))) {
-			clear_root();
-		}
+		// if (fs::exists(fs::path(commit_dir + "/mrgd"))) {
+		// 	clear_root();
+		// }
 
 		patch_root(std::to_string(i));
 	}
@@ -266,11 +267,13 @@ bool LitUtils::merge(std::string commit_no)
 		if (fs::is_directory(fs::path(x)))
 			continue;
 
-		if (std::find(conflicted_file_names.begin(), conflicted_file_names.end(), x) != conflicted_file_names.end())
-			continue;
-
 		const string orig = x + ".r" + last_checkout_number;
 		const string brnc = x + "." + commit_no;
+
+		if (std::find(conflicted_file_names.begin(), conflicted_file_names.end(), x) != conflicted_file_names.end()) {
+			polish_file_name(orig, ".r" + last_checkout_number);
+			continue;
+		}
 
 		if (fs::exists(fs::path(orig)) && !fs::exists(fs::path(brnc))) {
 			polish_file_name(orig, ".r" + last_checkout_number);
@@ -290,6 +293,8 @@ bool LitUtils::merge(std::string commit_no)
 			}
 		}
 	}
+
+	sync_backup_in_merge(last_checkout_number, conflicted_file_names);
 
 	if (merge_status_ok) {
 		string commit_msg = "Merge " + commit_no + " into r" + last_checkout_number;

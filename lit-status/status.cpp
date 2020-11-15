@@ -21,7 +21,7 @@ void LitStatus::check_for_added_or_modified(std::vector<std::string> cwd_filepat
 			if (fs::is_directory(fs::path(file)))
 				continue;
 
-			m_status.insert({file, "Added"});
+			m_status.insert({file, "A"});
 			if (is_file_empty(file)) {
 				m_empty_files.push_back(file);
 			}
@@ -40,10 +40,10 @@ void LitStatus::check_for_added_or_modified(std::vector<std::string> cwd_filepat
 
 		if (std::find(backup_filepaths.begin(), backup_filepaths.end(), file_to_find) != backup_filepaths.end()) {
 			if (compare_two_files(file, file_to_find)) {
-				m_status.insert({file, "Modified"});
+				m_status.insert({file, "M"});
 			}
 		} else {
-			m_status.insert({file, "Added"});
+			m_status.insert({file, "A"});
 			m_recently_added_files.push_back(file);
 		}
 	}
@@ -90,7 +90,7 @@ string LitStatus::check_for_deleted(std::vector<std::string> cwd_filepaths, std:
 			if (fs::is_directory(fs::path(file)))
 				continue;
 
-			m_status.insert({file, "Deleted"});
+			m_status.insert({file, "D"});
 			deleted_files += "Deleted\t" + fs::path(file).filename().string() + "\n";
 		}
 		return deleted_files;
@@ -102,7 +102,7 @@ string LitStatus::check_for_deleted(std::vector<std::string> cwd_filepaths, std:
 		string file_to_find = polish_for_cwd(file);
 
 		if (std::find(cwd_filepaths.begin(), cwd_filepaths.end(), file_to_find) == cwd_filepaths.end()) {
-			m_status.insert({file, "Deleted"});
+			m_status.insert({file, "D"});
 			deleted_files += "Deleted\t" + fs::path(file).filename().string() + "\n";
 		}
 	}
@@ -128,7 +128,17 @@ string LitStatus::polish_for_backup(std::string file_path)
 void LitStatus::print_status()
 {
 	for (auto &i : m_status) {
-		std::cout << i.second << "\t" << fs::path(i.first).filename() << "\n";
+
+		string stat;
+		if (i.second == "A") {
+			stat = "\033[1;32mA\033[0m";
+		} else if (i.second == "D") {
+			stat = "\033[1;31mD\033[0m";
+		} else {
+			stat = "\033[1;33mM\033[0m";
+		}
+
+		std::cout << stat << "  " << fs::path(i.first).filename() << "\n";
 	}
 }
 
