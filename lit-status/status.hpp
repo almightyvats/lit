@@ -12,6 +12,7 @@ class LitStatus {
 	std::filesystem::path m_current_working_dir;
 	std::map<std::string, std::string> m_status;
 	std::vector<std::string> m_recently_added_files;
+	std::vector<std::string> m_empty_files;
 
 	std::string m_backup_folder;
 
@@ -27,8 +28,9 @@ class LitStatus {
 	bool is_anything_modified();
 	std::vector<std::string> get_recently_added_files();
 	void clear_status();
-
+	std::vector<std::string> get_empty_files();
 	void print_status();
+	bool is_file_empty(const std::string &file);
 };
 
 #endif

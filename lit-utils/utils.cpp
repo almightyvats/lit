@@ -115,6 +115,8 @@ bool LitUtils::checkout(std::string commit_no, bool for_merge /* = false*/)
 
 	bool checkout_branch = fs::exists(fs::path(desired_commit_dir + "/brch"));
 
+	bool is_empty_files_present = fs::exists(fs::path(desired_commit_dir + "/empfiles"));
+
 	if (checkout_merged) {
 		patch_root(commit_no);
 	} else if (checkout_branch) {
@@ -131,6 +133,20 @@ bool LitUtils::checkout(std::string commit_no, bool for_merge /* = false*/)
 
 	if (fs::exists(fs::path(m_conflict_file))) {
 		fs::remove(fs::path(m_conflict_file));
+	}
+
+	if (is_empty_files_present) {
+		std::ifstream empty_files_list(desired_commit_dir + "/empfiles");
+		if (empty_files_list.is_open()) {
+			string s;
+			while (getline(empty_files_list, s)) {
+				if (!fs::exists(fs::path(s))) {
+					std::ofstream fs;
+					fs.open(s, std::ios::out);
+					fs.close();
+				}
+			}
+		}
 	}
 
 	if (!for_merge) {
@@ -204,7 +220,7 @@ bool LitUtils::show(std::string commit_no)
 	for (auto &l : list) {
 		if (fs::is_directory(fs::path(l)) || (l == desired_commit_dir + "/files") || (l == desired_commit_dir + "/brch")
 		    || (l == desired_commit_dir + "/msg") || (l == desired_commit_dir + "/mrgd")
-		    || (l == desired_commit_dir + "/cpar")) {
+		    || (l == desired_commit_dir + "/cpar") || (l == desired_commit_dir + "/empfiles")) {
 			continue;
 		}
 
@@ -238,7 +254,7 @@ bool LitUtils::merge(std::string commit_no)
 	iterate_root_repository(list_of_files);
 	set_root_repo_list(list_of_files);
 
-	string add_conflict_files = get_added_file_conflict_string(commit_no);
+	std::vector<std::string> add_conflict_files = get_added_file_conflict_string(commit_no);
 
 	add_rev_name_to_all_files(list_of_files, "r" + last_checkout_number);
 
@@ -249,17 +265,18 @@ bool LitUtils::merge(std::string commit_no)
 	add_rev_name_to_all_files(list_of_files, commit_no);
 
 	bool merge_status_ok = true;
-	string conflicted_file_names;
-	if (add_conflict_files.length() > 0) {
+	std::vector<std::string> conflicted_file_names;
+	if (add_conflict_files.size() > 0) {
 		merge_status_ok = false;
-		conflicted_file_names += add_conflict_files + "\n";
+		for (auto cFiles : add_conflict_files)
+			conflicted_file_names.push_back(cFiles);
 	}
 
 	for (const auto x : list_of_files) {
 		if (fs::is_directory(fs::path(x)))
 			continue;
 
-		if (conflicted_file_names.find(x) != string::npos)
+		if (std::find(conflicted_file_names.begin(), conflicted_file_names.end(), x) != conflicted_file_names.end())
 			continue;
 
 		const string orig = x + ".r" + last_checkout_number;
@@ -277,7 +294,7 @@ bool LitUtils::merge(std::string commit_no)
 					polish_file_name(orig + "_mc", ".r" + last_checkout_number + "_mc");
 				}
 				merge_status_ok = false;
-				conflicted_file_names += "- " + fs::path(x).filename().string() + "\n";
+				conflicted_file_names.push_back(x);
 			} else {
 				polish_file_name(orig, ".r" + last_checkout_number);
 			}
@@ -291,7 +308,10 @@ bool LitUtils::merge(std::string commit_no)
 		std::ofstream fs;
 		fs.open(m_conflict_file, std::ios::out);
 		fs.close();
-		std::cout << "Merge conflict(s) detected:\n" << conflicted_file_names << "\n";
+		std::cout << "Merge conflict(s) detected:\n";
+		for (const auto conflicted_file : conflicted_file_names) {
+			std::cout << "- " + fs::path(conflicted_file).filename().string() << std::endl;
+		}
 	}
 
 	return true;

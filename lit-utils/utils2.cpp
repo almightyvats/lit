@@ -348,6 +348,18 @@ void LitUtils::create_new_commit_dir(string commit_target_dest, string new_commi
 	if (branch_file.is_open()) {
 		branch_file.close();
 	}
+
+	std::vector<string> empty_files = m_litStatus->get_empty_files();
+	if (empty_files.size() > 0) {
+		std::fstream empty_file_list;
+		empty_file_list.open(commit_target_dest + "/" + "empfiles", std::ios::out);
+		for (const auto &file_name : empty_files) {
+			empty_file_list << file_name + "\n";
+		}
+		if (empty_file_list.is_open()) {
+			empty_file_list.close();
+		}
+	}
 }
 
 string LitUtils::get_deleted_file_name()
@@ -394,19 +406,19 @@ std::vector<string> LitUtils::get_branch_files(string commit_no)
 	return branch_files_list;
 }
 
-std::string LitUtils::check_for_adding_conflict(std::vector<std::string> new_files,
-                                                std::vector<std::string> branch_files)
+std::vector<std::string> LitUtils::check_for_adding_conflict(std::vector<std::string> new_files,
+                                                             std::vector<std::string> branch_files)
 {
-	string add_conflict;
+	std::vector<std::string> add_conflict;
 	for (const auto &file : new_files) {
 		if (std::find(branch_files.begin(), branch_files.end(), file) != branch_files.end()) {
-			add_conflict += fs::path(file).string() + "\n";
+			add_conflict.push_back(fs::path(file).string());
 		}
 	}
 	return add_conflict;
 }
 
-std::string LitUtils::get_added_file_conflict_string(std::string commit_no)
+std::vector<std::string> LitUtils::get_added_file_conflict_string(std::string commit_no)
 {
 	std::vector<std::string> root_dir_files = get_root_repo_list();
 	std::vector<string> list_of_file_backup;

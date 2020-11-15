@@ -22,6 +22,9 @@ void LitStatus::check_for_added_or_modified(std::vector<std::string> cwd_filepat
 				continue;
 
 			m_status.insert({file, "Added"});
+			if (is_file_empty(file)) {
+				m_empty_files.push_back(file);
+			}
 		}
 		return;
 	}
@@ -31,6 +34,9 @@ void LitStatus::check_for_added_or_modified(std::vector<std::string> cwd_filepat
 			continue;
 
 		string file_to_find = polish_for_backup(file);
+		if (is_file_empty(file)) {
+			m_empty_files.push_back(file);
+		}
 
 		if (std::find(backup_filepaths.begin(), backup_filepaths.end(), file_to_find) != backup_filepaths.end()) {
 			if (compare_two_files(file, file_to_find)) {
@@ -134,6 +140,16 @@ bool LitStatus::is_anything_modified()
 std::vector<string> LitStatus::get_recently_added_files()
 {
 	return m_recently_added_files;
+}
+
+std::vector<std::string> LitStatus::get_empty_files()
+{
+	return m_empty_files;
+}
+bool LitStatus::is_file_empty(const std::string &file)
+{
+	std::ifstream pFile(file);
+	return pFile.peek() == std::ifstream::traits_type::eof();
 }
 
 void LitStatus::clear_status()
