@@ -139,6 +139,19 @@ bool LitUtils::checkout(std::string commit_no, bool for_merge /* = false*/)
 		update_checkout_status(r);
 		sync_file_status(false);
 		sync_backup_folder();
+
+		std::vector<string> list_of_files_ref;
+		std::fstream files_list_commit_dir;
+		files_list_commit_dir.open(desired_commit_dir + "/files", std::ios::in);
+
+		if (files_list_commit_dir.is_open()) {
+			string tp;
+			while (getline(files_list_commit_dir, tp)) {
+				list_of_files_ref.push_back(tp);
+			}
+			files_list_commit_dir.close();
+		}
+		sync_checkout(get_current_working_dir(), list_of_files_ref);
 	}
 
 	return true;
