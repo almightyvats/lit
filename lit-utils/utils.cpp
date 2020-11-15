@@ -139,6 +139,7 @@ bool LitUtils::checkout(std::string commit_no, bool for_merge /* = false*/)
 	{
 		fs::remove(fs::path(m_conflict_file));
 	}
+	getchar();
 
 	if (!for_merge)
 	{
@@ -253,14 +254,16 @@ bool LitUtils::merge(std::string commit_no)
 	set_root_repo_list(list_of_files);
 
 	add_rev_name_to_all_files(list_of_files, "r" + last_checkout_number);
+	getchar();
 
 	if (!checkout(commit_no, true))
 	{
 		std::cout << "Some problem with merge.\n";
 		return false;
 	}
-
+	getchar();
 	add_rev_name_to_all_files(list_of_files, commit_no);
+	getchar();
 
 	bool files_merged_status = true;
 	string conflicted_file_names;

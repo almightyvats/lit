@@ -384,6 +384,10 @@ void LitUtils::create_new_commit_dir(string commit_target_dest, string new_commi
 			branch_file.open(commit_target_dest + "/" + "mrgd", std::ios::out);
 		}
 	}
+	else if (for_merge)
+	{
+		branch_file.open(commit_target_dest + "/" + "mrgd", std::ios::out);
+	}
 	else
 	{
 		branch_file.open(commit_target_dest + "/" + "cpar", std::ios::out);
@@ -433,11 +437,3 @@ bool LitUtils::validate_commit_no(const std::string commit_no, int last_commit_n
 	}
 	return true;
 }
-
-// bool LitUtils::validate_root()
-// {
-// 	if (!fs::exists(fs::path(m_lit_folder)))
-// 		return false;
-
-// 	return true;
-// }
