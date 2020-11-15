@@ -381,13 +381,19 @@ bool LitUtils::validate_commit_no(const std::string commit_no, int last_commit_n
 			if (commit_no.at(i) != 'r')
 				return false;
 			continue;
+		} else if (commit_no.at(i) == 'r') {
+			return false;
 		}
+
 		commit += commit_no.at(i);
 	}
 	if (commit.size() > 0) {
 		if (last_commit_no < std::stoi(commit))
 			return false;
+	} else {
+		return false;
 	}
+
 	return true;
 }
 
@@ -441,4 +447,19 @@ bool LitUtils::is_anything_modified()
 	m_litStatus->check_for_added_or_modified(root_dir_files, list_of_file_backup);
 	m_litStatus->check_for_deleted(root_dir_files, list_of_file_backup);
 	return m_litStatus->is_anything_modified();
+}
+
+void LitUtils::create_empty_files(std::string commit_dir)
+{
+	std::ifstream empty_files_list(commit_dir + "/empfiles");
+	if (empty_files_list.is_open()) {
+		string s;
+		while (getline(empty_files_list, s)) {
+			if (!fs::exists(fs::path(s))) {
+				std::ofstream fs;
+				fs.open(s, std::ios::out);
+				fs.close();
+			}
+		}
+	}
 }

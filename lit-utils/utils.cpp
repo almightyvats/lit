@@ -136,17 +136,7 @@ bool LitUtils::checkout(std::string commit_no, bool for_merge /* = false*/)
 	}
 
 	if (is_empty_files_present) {
-		std::ifstream empty_files_list(desired_commit_dir + "/empfiles");
-		if (empty_files_list.is_open()) {
-			string s;
-			while (getline(empty_files_list, s)) {
-				if (!fs::exists(fs::path(s))) {
-					std::ofstream fs;
-					fs.open(s, std::ios::out);
-					fs.close();
-				}
-			}
-		}
+		create_empty_files(desired_commit_dir);
 	}
 
 	if (!for_merge) {

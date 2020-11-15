@@ -1,14 +1,5 @@
 build
-build/libstatus.a
-build/Makefile
-build/lit
-build/libutils.a
-build/liblog.a
-build/libihelp.a
-build/compile_commands.json
-build/CMakeCache.txt
-build/cmake_install.cmake
-build/.cmake/api/*
-build/CMakeFiles
 build/*
 .vscode
+*.a
+*.o
