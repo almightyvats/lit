@@ -57,11 +57,9 @@ int main(int argc, char *argv[])
 		std::string commit_no = "";
 		if (argc > 2) {
 			commit_no = argv[2];
-			if (!lu.show(commit_no)) {
-				print_err_invalid_commit();
-			}
-		} else {
-			print_err_invalid_option("show");
+		}
+		if (!lu.show(commit_no)) {
+			print_err_invalid_commit();
 		}
 	} else if (current_exec_string.compare("merge") == 0) {
 		std::string commit_no = "";

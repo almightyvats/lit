@@ -63,7 +63,7 @@ class LitUtils {
 	std::vector<std::string> get_branch_files(std::string commit_no);
 	std::vector<std::string> check_for_adding_conflict(std::vector<std::string> new_files,
 	                                                   std::vector<std::string> branch_files);
-	std::vector<std::string> get_added_file_conflict_string(std::string commit_no);
+	bool is_current_state_mergable();
 	bool is_anything_modified();
 	void create_empty_files(std::string commit_dir);
 	void sync_backup_in_merge(std::string last_checkout, std::vector<std::string> conflicted_files);

@@ -352,19 +352,23 @@ void LitUtils::create_new_commit_dir(string commit_target_dest, string new_commi
 	commit_msg_file << get_deleted_file_name();
 	commit_msg_file.close();
 
+	bool is_last_commit_brch = fs::exists(fs::path(m_commit_dir + "/r" + std::to_string(temp_commit_no)));
+
 	std::fstream branch_file;
-	if (temp_lastcommit_no != temp_commit_no) // revisit this logic - check for if either folders are a branch
-	{
+	if (temp_lastcommit_no != temp_commit_no) {
 		if (!for_merge) {
 			branch_file.open(commit_target_dest + "/" + "brch", std::ios::out);
 		} else {
 			branch_file.open(commit_target_dest + "/" + "mrgd", std::ios::out);
 		}
+	} else if (temp_lastcommit_no == temp_commit_no && is_last_commit_brch) {
+		branch_file.open(commit_target_dest + "/" + "brch", std::ios::out);
 	} else if (for_merge) {
 		branch_file.open(commit_target_dest + "/" + "mrgd", std::ios::out);
 	} else {
 		branch_file.open(commit_target_dest + "/" + "cpar", std::ios::out);
 	}
+
 	if (temp_commit_no < 0) {
 		branch_file << temp_commit_no;
 	} else {
@@ -449,7 +453,7 @@ std::vector<std::string> LitUtils::check_for_adding_conflict(std::vector<std::st
 	return add_conflict;
 }
 
-std::vector<std::string> LitUtils::get_added_file_conflict_string(std::string commit_no)
+bool LitUtils::is_current_state_mergable()
 {
 	std::vector<std::string> root_dir_files = get_root_repo_list();
 	std::vector<string> list_of_file_backup;
@@ -458,9 +462,10 @@ std::vector<std::string> LitUtils::get_added_file_conflict_string(std::string co
 	m_litStatus->check_for_added_or_modified(root_dir_files, list_of_file_backup);
 
 	std::vector<string> vec_added_files = m_litStatus->get_recently_added_files();
-	std::vector<string> vec_branch_files = get_branch_files(commit_no);
 
-	return check_for_adding_conflict(vec_added_files, vec_branch_files);
+	bool not_mergable_state = (vec_added_files.size() > 0 || m_litStatus->is_anything_modified());
+
+	return !not_mergable_state;
 }
 
 bool LitUtils::is_anything_modified()

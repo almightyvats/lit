@@ -52,8 +52,8 @@ bool LitUtils::commit(string commit_msg, bool for_merge /* = false*/)
 		return true;
 	}
 
-	int temp_commit_no = std::stoi(last_commit_number);
-	int temp_lastcommit_no = std::stoi(last_checkout_number);
+	const int temp_commit_no = std::stoi(last_commit_number);
+	const int temp_lastcommit_no = std::stoi(last_checkout_number);
 
 	string new_commit_folder_name = "r" + std::to_string(temp_commit_no + 1);
 
@@ -183,15 +183,21 @@ bool LitUtils::patch_root_recursive(const int upto_commit_no)
 
 bool LitUtils::show(std::string commit_no)
 {
-	string last_checkout_number, current_checkout_target;
+	string last_checkout_number, current_show_target;
 	string last_commit_number;
 	get_info(last_commit_number, last_checkout_number);
 
-	if (!validate_commit_no(commit_no, std::stoi(last_commit_number)))
+	if (commit_no != "" && !validate_commit_no(commit_no, std::stoi(last_commit_number)))
 		return false;
 
-	string l = commit_no.erase(0, 1);
-	int r = std::stoi(l);
+	if (commit_no.empty()) {
+		commit_no = last_checkout_number;
+		current_show_target = last_checkout_number;
+	} else {
+		current_show_target = commit_no.erase(0, 1);
+	}
+
+	int r = std::stoi(current_show_target);
 
 	string desired_commit_dir = m_commit_dir + "/r" + commit_no;
 
@@ -248,7 +254,11 @@ bool LitUtils::merge(std::string commit_no)
 	iterate_root_repository(list_of_files);
 	set_root_repo_list(list_of_files);
 
-	std::vector<std::string> add_conflict_files = get_added_file_conflict_string(commit_no);
+	if (!is_current_state_mergable()) {
+		std::cout << "Uncommited changes in r" + last_checkout_number + "\n" + "Commit or drop changes to merge!"
+		                 + "\n";
+		return true;
+	}
 
 	add_rev_name_to_all_files(list_of_files, "r" + last_checkout_number);
 
@@ -257,14 +267,14 @@ bool LitUtils::merge(std::string commit_no)
 		return false;
 	}
 	add_rev_name_to_all_files(list_of_files, commit_no);
-
+	getchar();
 	bool merge_status_ok = true;
 	std::vector<std::string> conflicted_file_names;
-	if (add_conflict_files.size() > 0) {
-		merge_status_ok = false;
-		for (auto cFiles : add_conflict_files)
-			conflicted_file_names.push_back(cFiles);
-	}
+	// if (add_conflict_files.size() > 0) {
+	// 	merge_status_ok = false;
+	// 	for (auto cFiles : add_conflict_files)
+	// 		conflicted_file_names.push_back(cFiles);
+	// }
 
 	for (const auto x : list_of_files) {
 		if (fs::is_directory(fs::path(x)))
@@ -310,6 +320,7 @@ bool LitUtils::merge(std::string commit_no)
 		for (const auto conflicted_file : conflicted_file_names) {
 			std::cout << "- " + fs::path(conflicted_file).filename().string() << std::endl;
 		}
+		std::cout << "Remove conflict or drop changes to merge!\n";
 	}
 
 	return true;
