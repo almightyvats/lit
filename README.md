@@ -1,12 +1,13 @@
 # lit
+
 `lit` is a version control system (VCS) similar to Git, just not as powerfull.
 
 ### lit usage
 
 All functionality of the VCS is bundled into one executable named `lit`.
-Similar to `git`, it provides multiple *sub-commands* like `checkout` and `status`.
+Similar to `git`, it provides multiple _sub-commands_ like `checkout` and `status`.
 It is a CLI application.
-The usage of the *sub-commands* are explained below.
+The usage of the _sub-commands_ are explained below.
 
 ### `lit help`
 
@@ -15,11 +16,13 @@ Each sub-command will be listed and described briefly.
 
 ### `lit init`
 
-In order to initialize a directory as the root of your *lit repository(local)*, write `lit init`.
+In order to initialize a directory as the root of your _lit repository(local)_, write `lit init`.
+
 ```
 $ lit init
 This directory is now the root of the repository.
 ```
+
 If you see a message like this then your current repository is setup for lit and can use the sub-commands.
 
 ### `lit commit`
@@ -32,7 +35,8 @@ $ lit commit 'Initial commit'
 Commit: r0
 Date: Mon Nov 18 23:27:53 CEST 2020
 ```
-Note: There's no staging area like Git, also you can't choose particular files to commit, *all* changes will be committed.
+
+Note: There's no staging area like Git, also you can't choose particular files to commit, _all_ changes will be committed.
 
 ### `lit show`
 
@@ -66,7 +70,8 @@ $ lit status
 M  "file1"
 A  "file2"
 ```
-Assuming in the above case that some modifications were done in *file1* and a new *file2* was added.
+
+Assuming in the above case that some modifications were done in _file1_ and a new _file2_ was added.
 
 ### `lit checkout`
 
@@ -76,7 +81,7 @@ All un-committed changes are dropped upon checkout.
 
 If no commit is specified, reset the current state to the currently checked out commit.
 
-Note: You can add *new branches* by first checking out a previous commit, and then creating a new commit.
+Note: You can add _new branches_ by first checking out a previous commit, and then creating a new commit.
 
 ### `lit merge`
 
@@ -87,8 +92,9 @@ If no conflict between the two branches that you want to merge, a merge followed
 Consider the following two scenarios for understanding the working of merge:
 
 You have three commits already (r0, r1, r2), in order to make a new branch,
+
 1.  Checkout r0
-2.  Add a *file3*
+2.  Add a _file3_
 3.  Make a commit
 
 ```
@@ -100,7 +106,9 @@ Commit: r3
 Date: Tue Nov 17 00:08:19 2020
 
 ```
+
 Now that your branch is created, a merge can be done as follows,
+
 1.  Checkout r2
 2.  Merge into r3
 
@@ -112,12 +120,13 @@ Commit: r4
 Date: Tue Nov 17 00:18:24 2020
 
 ```
+
 This would mean that your merge was successful without any conflict and new commit (r4) was made automatically.
 
 Consider the next scenario,
 
 You continue to work on your personal project and you make changes to the files and make another commit (r5).
-Then you make a branch by checking out r2 and make changes to same file(s) *at the same line(s)*.
+Then you make a branch by checking out r2 and make changes to same file(s) _at the same line(s)_.
 
 Now if you checkout r5 again and merge it into r6, you would probably run into a conflict, that looks something like the following
 
@@ -137,11 +146,12 @@ Hope you have a wonderful time in checking the project
 Excited for the next assignment
 <<<<<<<<<< file1.r5
 I have no exeperience in game development
-========== 
+==========
 But I have experience in Qt and vectors - the math ones
 >>>>>>>>>> file1.r6
 
 ```
+
 This means that you have a merge conflict and now you have the following two options:
 
 1. To complete the merge after manually resolving the conflict, invoke the `commit` sub-command.
@@ -157,21 +167,22 @@ It displays a graph of all commits, one line per commit and also highlights the 
 ```
 $ lit log
 o─┐    ← r7 Merge r2 with r3
-│ o      r6 Extending file another way
-o │      r5 Extend file1 from master 
+│ o      r6 Extending file1 another way
+o │      r5 Extend file1 from master
 o─│      r4 Merge r3 into r2
 │ o      r3 Adding file3
 o │─ r6  r2 Extending file2
 o │      r1 Adding file2
 o─┘─ r3  r0 Intial commit
 ```
-In the above graph the left most line is the *main branch* and the second line (second column) will represent all the *branches* ( `o` infront of r3 and r6 suggests that they are branches).
+
+In the above graph the left most line is the _main branch_ and the second line (second column) will represent all the _branches_ ( `o` infront of r3 and r6 suggests that they are branches).
 The third line will show the origin of the branch (the parent of the branch), in the above case, r2 is the parent of r6 and r0 is the parent of r3. On the fourth line there's a marker that suggests the currently checkout branch (r7).
-And in the last line, we have the commit messages. *You probably want to use this command more often.*
+And in the last line, we have the commit messages. _You probably want to use this command more often._
 
 ### Final Note
 
-It was a wonderful learning experience, I think I worked on this harder than I had worked for my job ^_^ 
+It was a wonderful learning experience, I think I worked on this harder than I had worked for my job ^\_^
 I personally love writing logics, what makes it more fun is when you have such a detailed project and you can picturise how you want it to be for the users.
 Thank you for your support!
 Hope you had a good time testing it.

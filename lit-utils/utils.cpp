@@ -47,7 +47,7 @@ bool LitUtils::commit(string commit_msg, bool for_merge /* = false*/)
 	iterate_root_repository(list_of_files);
 	set_root_repo_list(list_of_files);
 
-	if (!is_anything_modified()) {
+	if (!is_anything_modified() && !for_merge) {
 		std::cout << "No changes to commit!" << std::endl;
 		return true;
 	}
