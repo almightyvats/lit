@@ -267,7 +267,6 @@ bool LitUtils::merge(std::string commit_no)
 		return false;
 	}
 	add_rev_name_to_all_files(list_of_files, commit_no);
-	getchar();
 	bool merge_status_ok = true;
 	std::vector<std::string> conflicted_file_names;
 	// if (add_conflict_files.size() > 0) {

@@ -352,7 +352,7 @@ void LitUtils::create_new_commit_dir(string commit_target_dest, string new_commi
 	commit_msg_file << get_deleted_file_name();
 	commit_msg_file.close();
 
-	bool is_last_commit_brch = fs::exists(fs::path(m_commit_dir + "/r" + std::to_string(temp_commit_no)));
+	bool is_last_commit_brch = fs::exists(fs::path(m_commit_dir + "/r" + std::to_string(temp_commit_no) + "/brch"));
 
 	std::fstream branch_file;
 	if (temp_lastcommit_no != temp_commit_no) {
