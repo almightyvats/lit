@@ -166,4 +166,12 @@ o │      r1 Adding file2
 o─┘─ r3  r0 Intial commit
 ```
 In the above graph the left most line is the *main branch* and the second line (second column) will represent all the *branches* ( `o` infront of r3 and r6 suggests that they are branches).
-The third line will show the origin of the branch (the parent of the branch), in the above case, r2 is the parent of r6 and r0 is the parent of r3.
+The third line will show the origin of the branch (the parent of the branch), in the above case, r2 is the parent of r6 and r0 is the parent of r3. On the fourth line there's a marker that suggests the currently checkout branch (r7).
+And in the last line, we have the commit messages. *You probably want to use this command more often.*
+
+### Final Note
+
+It was a wonderful learning experience, I think I worked on this harder than I had worked for my job ^_^ 
+I personally love writing logics, what makes it more fun is when you have such a detailed project and you can picturise how you want it to be for the users.
+Thank you for your support!
+Hope you had a good time testing it.
