@@ -33,8 +33,8 @@ void print_help_commands()
 {
 	std::string helpCommands[7] = {"init", "status", "commit", "show", "checkout", "merge", "log"};
 	std::string helpCommanddescription[7] = {
-	    "To initialise an empty lit respository and making the current directoty the master branch",
-	    "Lists of all files that have been added, removed, or modified, with respect to the currently checked out"
+	    "This command initialises the current directory as root of lit",
+	    "Lists of all files that have been added, removed, or modified, with respect to the currently checked out "
 	    "commit",
 	    "Creates a new commit containing all changes",
 	    "This sub-command is used to inspect the given commit",

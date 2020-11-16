@@ -269,11 +269,6 @@ bool LitUtils::merge(std::string commit_no)
 	add_rev_name_to_all_files(list_of_files, commit_no);
 	bool merge_status_ok = true;
 	std::vector<std::string> conflicted_file_names;
-	// if (add_conflict_files.size() > 0) {
-	// 	merge_status_ok = false;
-	// 	for (auto cFiles : add_conflict_files)
-	// 		conflicted_file_names.push_back(cFiles);
-	// }
 
 	for (const auto x : list_of_files) {
 		if (fs::is_directory(fs::path(x)))

@@ -441,18 +441,6 @@ std::vector<string> LitUtils::get_branch_files(string commit_no)
 	return branch_files_list;
 }
 
-std::vector<std::string> LitUtils::check_for_adding_conflict(std::vector<std::string> new_files,
-                                                             std::vector<std::string> branch_files)
-{
-	std::vector<std::string> add_conflict;
-	for (const auto &file : new_files) {
-		if (std::find(branch_files.begin(), branch_files.end(), file) != branch_files.end()) {
-			add_conflict.push_back(fs::path(file).string());
-		}
-	}
-	return add_conflict;
-}
-
 bool LitUtils::is_current_state_mergable()
 {
 	std::vector<std::string> root_dir_files = get_root_repo_list();

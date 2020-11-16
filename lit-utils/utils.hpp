@@ -61,8 +61,7 @@ class LitUtils {
 	void clear_root();
 	bool validate_commit_no(const std::string commit_no, int last_commit_no);
 	std::vector<std::string> get_branch_files(std::string commit_no);
-	std::vector<std::string> check_for_adding_conflict(std::vector<std::string> new_files,
-	                                                   std::vector<std::string> branch_files);
+
 	bool is_current_state_mergable();
 	bool is_anything_modified();
 	void create_empty_files(std::string commit_dir);

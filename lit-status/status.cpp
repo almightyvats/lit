@@ -128,7 +128,7 @@ string LitStatus::polish_for_backup(std::string file_path)
 void LitStatus::print_status()
 {
 	for (auto &i : m_status) {
-
+		// https://stackoverflow.com/questions/2616906/how-do-i-output-coloured-text-to-a-linux-terminal
 		string stat;
 		if (i.second == "A") {
 			stat = "\033[1;32mA\033[0m";
@@ -158,6 +158,7 @@ std::vector<std::string> LitStatus::get_empty_files()
 }
 bool LitStatus::is_file_empty(const std::string &file)
 {
+	// https: // stackoverflow.com/questions/2390912/checking-for-an-empty-file-in-c
 	std::ifstream pFile(file);
 	return pFile.peek() == std::ifstream::traits_type::eof();
 }
