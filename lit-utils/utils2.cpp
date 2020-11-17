@@ -1,4 +1,5 @@
 #include "utils.hpp"
+#include <ctime>
 #include <sstream>
 
 namespace fs = std::filesystem;
@@ -420,21 +421,6 @@ bool LitUtils::validate_commit_no(const std::string commit_no, int last_commit_n
 	}
 
 	return true;
-}
-
-std::vector<string> LitUtils::get_branch_files(string commit_no)
-{
-	std::vector<string> branch_files_list;
-	string s1;
-	fs::path branch_files_path = fs::path(m_commit_dir + "/" + commit_no + "/files");
-	if (fs::exists(branch_files_path)) {
-		std::ifstream f;
-		f.open(branch_files_path.string());
-		while (getline(f, s1)) {
-			branch_files_list.push_back(s1);
-		}
-	}
-	return branch_files_list;
 }
 
 bool LitUtils::is_current_state_mergable()

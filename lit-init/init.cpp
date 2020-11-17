@@ -1,7 +1,5 @@
 #include "init.hpp"
 #include "../lit-utils/utils.hpp"
-#include <iostream>
-#include <string>
 
 bool create_root_dir(const fs::path &current_working_dir)
 {

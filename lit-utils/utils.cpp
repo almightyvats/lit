@@ -1,6 +1,5 @@
 #include "utils.hpp"
 #include "../lit-log/log.hpp"
-#include <ctime>
 
 namespace fs = std::filesystem;
 using string = std::string;

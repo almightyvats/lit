@@ -1,8 +1,6 @@
 #include "help.cpp"
 #include "init.hpp"
 #include "utils.hpp"
-#include <iostream>
-#include <string>
 
 namespace fs = std::filesystem;
 

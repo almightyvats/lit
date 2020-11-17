@@ -57,7 +57,6 @@ class LitUtils {
 	                      int &final_parent);
 	void clear_root();
 	bool validate_commit_no(const std::string commit_no, int last_commit_no);
-	std::vector<std::string> get_branch_files(std::string commit_no);
 
 	bool is_current_state_mergable();
 	bool is_anything_modified();
