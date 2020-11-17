@@ -135,6 +135,7 @@ lit log
 lit checkout r5
 lit merge r6
 
+echo "You should have have a conflict at this point, please resolve it and press enter to continue."
 read -p "$*"
 
 # Let's simulate some conflict resolution.
