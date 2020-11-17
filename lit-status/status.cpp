@@ -1,8 +1,4 @@
 #include "status.hpp"
-#include <algorithm>
-#include <filesystem>
-#include <fstream>
-#include <iostream>
 
 namespace fs = std::filesystem;
 using string = std::string;
